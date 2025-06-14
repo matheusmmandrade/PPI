@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Clínica Matos é uma clínica consagrada no tratamento de problemas relacionados à corridas de longas distâncias">
+    <title>Formulário de Cadastro</title>
+</head>
+
+<body>
+    <header>
+        <h1>Clínica Matos</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form action="cadastraCliente.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="origemCadastro" value="formularioSite">
+            <fieldset>
+                <legend>Dados Pessoais</legend>
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nomeCliente" id="nome" minlength="2" maxlength="50" required autofocus>
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" name="emailCliente" id="email" placeholder="Seu e-mail aqui" required>
+                </div>
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" name="cpfCliente" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+                </div>
+                <div>
+                    <label for="idade">Idade:</label>
+                    <input type="number" name="idadeCliente" id="idade" required>
+                </div>
+                <div>
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" name="telefoneCliente" id="telefone" required>
+                </div>
+                <div>
+                    <label for="data">Data de Nascimento:</label>
+                    <input type="date" name="dataCliente" id="data">
+                </div>
+                <div>
+                    <label for="sexo">Sexo:</label>
+                    <input type="text" name="sexoCliente" id="sexo">
+                </div>
+                <div>
+                    <div>Estado Civil
+                        <div>
+                            <input type="radio" id="solteiro" name="estadocivil" value="solteiro">
+                            <label for="solteiro">Solteiro</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="casado" name="estadocivil" value="casado">
+                            <label for="casado">Casado</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="divorciado" name="estadocivil" value="divorciado">
+                            <label for="divorciado">Divorciado</label>
+                        </div>
+                    </div>
+                </div>
+                <label for="codigo">Código do cliente:</label>
+                <input type="text" id="codigo" name="codigoCliente" value="123456" readonly>
+
+            </fieldset>
+            <fieldset>
+                <legend>Endereço</legend>
+                <div>
+                    <label for="cep">Cep:</label>
+                    <input type="text" name="cepCliente" id="cep" required>
+                </div>
+                <div>
+                    <label for="logradouroSelect">Tipo de logradouro:</label>
+                    <select name="tipoLogradouroCliente" id="logradouroSelect" required>
+                        <option value="Rua">Rua</option>
+                        <option value="Avenida">Avenida</option>
+                        <option value="Praça">Praça</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="logradouro">Logradouro:</label>
+                    <input type="text" name="cepCliente" id="logradouro" required>
+                </div>
+                <div>
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" name="bairroCliente" id="bairro" required>
+                </div>
+                <div>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" name="cidadeCliente" id="cidade" required>
+                </div>
+                <div>
+                    <label for="estado">Estado:</label>
+                    <input type="text" name="estadoCliente" id="estado" required>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>Informações Adicionais</legend>
+                <fieldset>
+                    <legend>Interesses</legend>
+                    <div>
+                        <label for="filmes">Filmes</label>
+                        <input type="checkbox" name="interesses[]" id="filmes" value="filmes">
+                    </div>
+                    <div>
+                        <label for="informatica">Informatica</label>
+                        <input type="checkbox" name="interesses[]" id="informatica" value="informatica">
+                    </div>
+                    <div>
+                        <label for="games">Games</label>
+                        <input type="checkbox" name="interesses[]" id="games" value="games">
+                    </div>
+                    <div>
+                        <label for="livros">Livros</label>
+                        <input type="checkbox" name="interesses[]" id="livros" value="livros">
+                    </div>
+                    <div>
+                        <label for="roupas">Roupas</label>
+                        <input type="checkbox" name="interesses[]" id="roupas" value="roupas">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Informações complementares</legend>
+                    <div>
+                        <label for="infos">Digite aqui</label>
+                        <textarea name="infosCliente" id="infos"></textarea>
+                    </div>
+
+                </fieldset>
+                <fieldset>
+                    <label for="arquivo">Imagem:</label>
+                    <input type="file" id="arquivo" name="arquivoCliente" accept="image/*">
+                </fieldset>
+            </fieldset>
+            <button>Enviar</button>
+        </form>
+
+    </main>
+    <footer>
+        <address>Av João Naves de Matos, Bloco 1B, Sala 1B202, Uberlândia</address>
+    </footer>
+</body>
+
+</html>
