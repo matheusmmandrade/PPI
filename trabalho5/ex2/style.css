@@ -1,81 +1,73 @@
 body {
-    background-color: #f0f0f0;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.5;
+    background-color: #e9e9e9;
+    font-family: sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #6e6e6e;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.2em;
+    font-weight: normal;
     margin: 0;
 }
 
-
-
-header{
-    background-color: #444444;
-    width: 100%;
-}
-
-
-h1,
-h2 {
-    color: #333;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-header h1{
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-main{
+main {
     width: 70%;
     margin: 20px auto;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: center;
+    justify-content: center;
 }
 
 .card {
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    flex: 1 1 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-basis: 250px;
     max-width: 350px;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
-.card-img {
+.card h3 {
+    margin: 0 0 15px 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.card img {
     max-width: 100%;
-    height: 300px; 
-    object-fit: cover;
-    aspect-ratio: 16 / 10;
-    border-radius: 4px;
+    height: auto;
     display: block;
 }
 
-.card-desc {
-    margin: 15px 0;
-    font-size: 0.9rem;
+.card p {
+    font-size: 0.9em;
     line-height: 1.4;
+    flex-grow: 1;
 }
 
-.card-preco {
-    font-size: 1.3rem;
+.card .preco {
     font-weight: bold;
-    color: #28a745;
-    margin: 0;
+    font-size: 1.1em;
+    color: #b12704;
+    flex-grow: 0;
 }
 
 @media (max-width: 400px) {
     main {
         width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
     }
 }
-

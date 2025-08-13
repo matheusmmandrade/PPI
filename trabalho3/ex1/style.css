@@ -1,50 +1,54 @@
+body {
+    background-color: #ddd; 
+    font-family: Helvetica, sans-serif; 
+    color: #444;
+    line-height: 1.5; 
+    
+    width: 60%;
+    margin: 0 auto; 
+    padding: 2% 0;
+}
 
-section{
+#container {
+    background-color: white;
+    padding: 20px; 
+}
+
+
+h1, h2 {
+    color: rgb(140, 76, 8);
+}
+
+
+section {
     margin-top: 0px;
     padding-bottom: 5px;
     border-top: solid 1px gray;
 }
 
-body{
-    background-color: #ddd;
-    font-family: Helvetica;
-    color: #444;
-    line-height: 1.5;
-    width: 60%;
-    margin: 0 auto;
-    padding: 2% 0;
-}
-
-main{
-    background-color: white;
-}
-
-h1{
- color: rgb(140, 76, 8);
-}
-
-h2{
- color: rgb(140, 76, 8);
-}
-
-p:first-of-type{
+h2 + p {
     text-indent: 2rem;
 }
 
-#experiencia li{
+
+#experiencia li {
     font-weight: bold;
 }
 
-a:link,
-a:visited{
-    color: #555;
-    background-color: #ddd;
-   
-}
-a:hover,
-a:active{
-    background-color: yellow;
-    color: blue;
-    border-bottom: 3px solid red;
+a:link {
+    color: #007bff;
+    text-decoration: none; 
 }
 
+a:visited {
+    color: #5a2d82;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline; 
+}
+
+a:active {
+    color: #ff4500;
+}
