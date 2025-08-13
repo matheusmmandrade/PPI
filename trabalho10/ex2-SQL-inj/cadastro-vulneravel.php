@@ -14,6 +14,7 @@ $sql = <<<SQL
 try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$nome, $telefone]);
+    header("location: mostra-alunos.php");
 } catch (Exception $e) {
     exit('Falhainesperada: ' . $e->getMessage());
 }
