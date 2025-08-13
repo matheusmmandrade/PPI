@@ -2,6 +2,7 @@
 
 require "../conexaoMysql.php";
 require "cliente.php";
+require "paciente.php";
 
 // resgata a ação a ser executada
 $acao = $_GET['acao'];
@@ -32,8 +33,20 @@ switch ($acao) {
 
     try {
       // Insere os dados nas tabelas correlacionadas, cliente e enderecoCliente, utilizando transação
-      Cliente::Create($pdo, $nome, $cpf, $email, $senhaHash, $dataNascimento, $estadoCivil, $altura, 
-        $cep, $logradouro, $bairro, $cidade);
+      Cliente::Create(
+        $pdo,
+        $nome,
+        $cpf,
+        $email,
+        $senhaHash,
+        $dataNascimento,
+        $estadoCivil,
+        $altura,
+        $cep,
+        $logradouro,
+        $bairro,
+        $cidade
+      );
       header("location: clientes.html");
     } catch (Exception $e) {
       throw new Exception($e->getMessage());
@@ -51,7 +64,34 @@ switch ($acao) {
     }
     break;
 
-    //-----------------------------------------------------------------
+  case "adicionarPaciente":
+    $nome = $_POST["nome"] ?? "";
+    $sexo = $_POST["sexo"] ?? "";
+    $email = $_POST["email"] ?? "";
+    $peso = $_POST["peso"] ?? null;
+    $altura = $_POST["altura"] ?? null;
+    $tipoSanguineo = $_POST["tipoSanguineo"] ?? "";
+
+    try {
+      Paciente::Create(
+        $pdo,
+        $nome,
+        $sexo,
+        $email,
+        $peso,
+        $altura,
+        $tipoSanguineo
+      );
+
+      header("location: ../index.html");
+      exit();
+
+    } catch (Exception $e) {
+
+      exit("Falha ao cadastrar o paciente: " . $e->getMessage());
+    }
+
+
   default:
     exit("Ação não disponível");
 }
