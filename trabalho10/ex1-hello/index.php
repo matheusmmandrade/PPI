@@ -8,10 +8,12 @@ try {
     SELECT nome, telefone
     FROM aluno
   SQL;
-
+  // seleciona o nome e telefone de todas as tuplas da tabela aluno
   $stmt = $pdo->query($sql);
+  //executa a consulta no banco de dados. O resultado é guardado em $stmt.
 } 
 catch (Exception $e) {
+  // se der erro mostra o erro
   exit('Ocorreu uma falha: ' . $e->getMessage());
 }
 
@@ -40,6 +42,7 @@ catch (Exception $e) {
       <?php
       while ($row = $stmt->fetch()) 
       {
+        // ssanitiza os dados para exibição segura no HTML, prevenindo XSS.
         $nome = htmlspecialchars($row['nome']);
         $telefone = htmlspecialchars($row['telefone']);
 
