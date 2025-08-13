@@ -1,7 +1,7 @@
 <?php
 
 require "../conexaoMysql.php";
-require "cliente.php";
+require "produto.php";
 
 // resgata a ação a ser executada
 $acao = $_GET['acao'];

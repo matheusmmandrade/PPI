@@ -41,8 +41,8 @@ class Produto
     if ($stmt->rowCount() == 0)
       throw new Exception("Produto não localizado");
 
-    $cliente = $stmt->fetch(PDO::FETCH_OBJ);
-    return $cliente;
+    $produto = $stmt->fetch(PDO::FETCH_OBJ);
+    return $produto;
   }
 
   // Retorna os 30 clientes iniciais da tabela na forma de um array de objetos.
@@ -58,8 +58,8 @@ class Produto
     );
 
     // Resgata os dados dos clientes como um array de objetos
-    $arrayClientes = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $arrayClientes;
+    $arrayProdutos = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $arrayProdutos;
   }
 
   // Método estático para excluir um cliente dado o seu Id
