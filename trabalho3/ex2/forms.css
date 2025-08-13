@@ -1,0 +1,26 @@
+#cadastro-h1{
+    color: blue;
+}
+
+
+div:has(>input[type="number"]:invalid)::after{
+    content: '✖';
+    color: red;
+}
+
+div:has(>input[type="text"]:valid)::after{
+    content: '✓';
+    color: green;
+}
+input[type="text"]:invalid{
+    background-color: rgb(249, 226, 226);
+}
+input[type="text"]:valid{
+    background-color: green;
+}
+
+fieldset{
+    background-color: gray;
+    padding: 50px;
+    border-color: red;
+}

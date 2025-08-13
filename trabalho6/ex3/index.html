@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 3 - Calculadora de Peso Ideal</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Calculadora de Peso Ideal</h2>
+
+        <div class="campo">
+            <label for="altura">Sua altura (em centímetros):</label>
+            <input type="text" id="altura" placeholder="Ex: 175">
+        </div>
+
+        <div class="campo">
+            <label>Sexo:</label>
+            <input type="radio" id="masculino" name="sexo" value="masculino">
+            <label for="masculino" style="display: inline;">Masculino</label>
+            <br>
+            <input type="radio" id="feminino" name="sexo" value="feminino">
+            <label for="feminino" style="display: inline;">Feminino</label>
+        </div>
+
+        <button id="calcularBtn">Calcular</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        const botaoCalcular = document.getElementById('calcularBtn');
+
+        botaoCalcular.addEventListener('click', function () {
+
+            const campoAltura = document.getElementById('altura');
+            const campoSexo = document.querySelector('input[name="sexo"]:checked');
+            const paragrafoResultado = document.getElementById('resultado');
+
+            if (!campoSexo) {
+                paragrafoResultado.textContent = 'Por favor, selecione o sexo.';
+                return;
+            }
+
+            const altura = parseInt(campoAltura.value); //
+
+            if (isNaN(altura) || altura <= 0) { //
+                paragrafoResultado.textContent = 'Por favor, informe uma altura válida.'; //
+                return;
+            }
+
+            let pesoIdeal = 0;
+
+
+            if (campoSexo.value === 'masculino') {
+                pesoIdeal = 52 + (0.75 * (altura - 152.4));
+            } else {
+                pesoIdeal = 52 + (0.67 * (altura - 152.4));
+            }
+
+            paragrafoResultado.textContent = `Seu peso ideal é ${pesoIdeal.toFixed(2)} kg.`;
+        });
+    </script>
+
+    <div style="text-align:center; margin-top: 30px;">
+        <hr>
+        <h2>Print da Depuração do Exercício 3</h2>
+        <img src="images/image.png" alt="Print da tela durante a depuração do código da calculadora de peso ideal."
+            style="max-width: 90%;">
+    </div>
+
+</body>
+
+</html>

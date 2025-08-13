@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 4 - Análise de Tipos de Nós do DOM</title>
+</head>
+
+<body>
+
+    <h1>Análise da Saída do Código sobre Tipos de Nós no DOM</h1>
+
+    <div class="explanation">
+        <p>Esta página explica a saída de um código JavaScript, utilizando os conceitos apresentados nos slides 33 e 34.
+            A análise se baseia em como a <strong>Árvore DOM</strong> é construída e na <strong>hierarquia de tipos de
+                objetos</strong> que a compõem.</p>
+    </div>
+
+    <h2>Saída do Código a ser Analisada</h2>
+    <div class="output">
+        Tipos de nós na árvore DOM
+        [object Text]
+        [object HTMLHeadingElement]
+        [object Text]
+        [object HTMLInputElement]
+        [object Text]
+        [object Comment]
+        [object Text]
+        [object HTMLPreElement]
+        [object Text]
+        [object HTMLScriptElement]
+        true
+        true
+        true
+        true
+        true
+        [object HTMLDocument]
+    </div>
+
+    <h2>Explicação Detalhada</h2>
+
+    <p>O código provavelmente percorre todos os nós filhos diretos do <code>&lt;body&gt;</code> de uma página HTML e
+        imprime o tipo de cada nó. [cite_start]Conforme o slide 33, ao carregar uma página, o navegador monta a Árvore
+        DOM, onde cada elemento, texto ou comentário é representado como um <strong>nó</strong>[cite: 1].</p>
+
+    <ul>
+        <li>
+            <strong>[object Text]</strong>: Estes são os nós mais comuns na lista. Eles não representam apenas o texto
+            visível dentro das tags, mas também os espaços em branco, como quebras de linha e indentação no código-fonte
+            HTML entre os elementos. [cite_start]Cada quebra de linha entre uma tag e outra (ex: entre
+            <code>&lt;h1&gt;</code> e <code>&lt;input&gt;</code>) se torna um nó do tipo <code>Text</code> na Árvore
+            DOM[cite: 1, 2].
+        </li>
+        <li>
+            <strong>[object HTMLHeadingElement]</strong>: Este nó representa uma tag de cabeçalho, como
+            <code>&lt;h1&gt;</code>. [cite_start]Como mostra o diagrama do slide 34, <code>HTMLHeadingElement</code> é
+            um tipo específico de <code>HTMLElement</code>, que por sua vez herda de <code>Element</code> e
+            <code>Node</code>[cite: 2].
+        </li>
+        <li>
+            <strong>[object HTMLInputElement]</strong>: Corresponde a uma tag <code>&lt;input&gt;</code>. [cite_start]É
+            um tipo de nó específico para elementos de formulário, que possui propriedades únicas como
+            <code>value</code>[cite: 2].
+        </li>
+        <li>
+            <strong>[object Comment]</strong>: Representa um comentário no código HTML
+            (<code>&lt;!-- ... --&gt;</code>). [cite_start]Embora não seja visível na página, ele existe como um nó do
+            tipo <code>Comment</code> na árvore[cite: 2].
+        </li>
+        <li>
+            <strong>[object HTMLPreElement]</strong> e <strong>[object HTMLScriptElement]</strong>: Respectivamente,
+            representam as tags <code>&lt;pre&gt;</code> (texto pré-formatado) e <code>&lt;script&gt;</code>.
+        </li>
+        <li>
+            <strong>As cinco saídas "true"</strong>: Estas linhas muito provavelmente são o resultado de testes com o
+            operador <code>instanceof</code> para verificar a hierarquia de um nó. Por exemplo, se o código testasse o
+            nó do <code>&lt;h1&gt;</code>, ele poderia verificar:
+            <ul>
+                <li><code>noH1 instanceof HTMLHeadingElement</code> (true)</li>
+                <li><code>noH1 instanceof HTMLElement</code> (true)</li>
+                [cite_start]<li><code>noH1 instanceof Element</code> (true) [cite: 2]</li>
+                [cite_start]<li><code>noH1 instanceof Node</code> (true) [cite: 2]</li>
+                [cite_start]<li><code>noH1 instanceof EventTarget</code> (true) [cite: 2]</li>
+            </ul>
+            Isso demonstra na prática a cadeia de herança mostrada no diagrama do slide 34.
+        </li>
+        <li>
+            <strong>[object HTMLDocument]</strong>: Esta última linha provavelmente é a impressão do próprio objeto
+            <code>document</code>. [cite_start]Ele é o nó raiz da árvore DOM para aquele documento HTML e serve como
+            ponto de entrada para manipulação da página[cite: 2].
+        </li>
+    </ul>
+
+    <h2>Conclusão</h2>
+    <p>A análise da saída nos ensina duas coisas importantes:
+    <ol>
+        <li>A Árvore DOM é mais detalhada do que parece, incluindo nós para textos, comentários e até espaços em branco.
+        </li>
+        [cite_start]<li>Todos os objetos na árvore seguem uma hierarquia de tipos, o que permite que elementos mais
+            específicos (como um <code>HTMLInputElement</code>) herdem propriedades e métodos de tipos mais genéricos
+            (como <code>Element</code> e <code>Node</code>)[cite: 2].</li>
+    </ol>
+    </p>
+
+</body>
+
+</html>
