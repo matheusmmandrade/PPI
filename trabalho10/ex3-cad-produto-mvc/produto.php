@@ -54,6 +54,7 @@ class Produto
     $stmt = $pdo->query(
       <<<SQL
       SELECT id, nome, marca, descricao
+      FROM produto
       SQL
     );
 
