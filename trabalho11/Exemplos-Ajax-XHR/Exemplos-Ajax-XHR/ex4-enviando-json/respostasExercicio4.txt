@@ -1,0 +1,17 @@
+- Qual o valor dos cabeçalhos Content-Type e Content-Length?
+O valor do cabeçalho Content-Type é application/json.
+O valor do cabeçalho Content-Length é 63.
+
+- O que é apresentado na aba Payload? O que isso significa?
+A aba `Payload` (ou `Carga` em alguns navegadores) apresentara o objeto JSON que foi enviado no corpo da requisição. O conteúdo seria:
+{cep: "38400-100", email: "fulano@mail.com", apikey: "123456"}
+apikey
+: 
+"123456"
+cep
+: 
+"38400-100"
+email
+: 
+"fulano@mail.com"
+Isso significa que o navegador está enviando dados de forma estruturada, limpa e segura no corpo da requisição HTTP POST, em vez de expô-los na URL. O cabeçalho Content-Length informa o tamanho exato em bytes dessa carga de dados.

@@ -65,7 +65,10 @@
       let xhr = new XMLHttpRequest();
       xhr.open("POST", "busca-endereco.php");
       xhr.responseType = 'json';
+      // Esta linha instrui o navegador a automaticamente converter a resposta do servidor de uma string JSON para um objeto JavaScript. Isso elimina a necessidade de usar JSON.parse() manualmente, simplificando o código.
       xhr.setRequestHeader("Content-Type", "application/json");
+      // Esta linha define um cabeçalho HTTP na requisição. Ela informa ao servidor que o conteúdo que será enviado no corpo da requisição está no formato JSON. Isso é fundamental para que o script PHP saiba como interpretar os dados recebidos.
+
 
       xhr.onload = function () {
         if (xhr.status != 200 || xhr.response === null) return;
@@ -80,6 +83,7 @@
       };
 
       xhr.send(JSON.stringify(objetoJS));
+      // Esta linha envia a requisição para o servidor. O método send() recebe o corpo da requisição como argumento. JSON.stringify(objetoJS) converte o objeto JavaScript objetoJS em uma string JSON, que é o formato esperado pelo servidor.
     }
 
     const inputCep = document.querySelector("#cep");
