@@ -38,7 +38,7 @@
 
   <script>
     function buscaCidade(cep) {
-      if (cep.length != 9) 
+      if (cep.length != 9)
         return;
 
       let xhr = new XMLHttpRequest();
@@ -62,7 +62,11 @@
     const inputCep = document.querySelector("#cep");
     inputCep.onkeyup = () => buscaCidade(inputCep.value);
   </script>
-
-</body>
+  <!-- O código consiste em uma página web que busca o nome de uma cidade a partir de um CEP. Através de um script
+  JavaScript, cada vez que o usuário digita no campo, uma requisição AJAX é enviada para um arquivo PHP no servidor. O
+  PHP age como um "banco de dados" simples, verificando se o CEP fornecido é um dos dois valores predefinidos. Se houver
+  correspondência, ele retorna o nome da cidade; caso contrário, ele envia um erro 404. De volta ao JavaScript, se a
+  requisição for bem-sucedida, o nome da cidade é exibido na página, tudo isso sem a necessidade de recarregar a página.
+</body> -->
 
 </html>
