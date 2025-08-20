@@ -2,10 +2,10 @@
 
 function mysqlConnect()
 {
-  $db_host = "localhost";
-  $db_username = "ppi";
-  $db_password = "ppi";
-  $db_name = "ppi";
+  $db_host = "sql208.infinityfree.com";
+  $db_username = "if0_39210014";
+  $db_password = "pouM4xu1ngY";
+  $db_name = "if0_39210014_ppi";
 
   $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
@@ -15,8 +15,7 @@ function mysqlConnect()
   try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_username, $db_password, $options);
     return $pdo;
-  } 
-  catch (Exception $e) {
+  } catch (Exception $e) {
     exit('Ocorreu uma falha na conexão com o MySQL: ' . $e->getMessage());
   }
 }
