@@ -16,3 +16,20 @@ d)
 5 - A requisição HTTP possui o cabeçalho Content-Type? Por quê? Não, a requisição HTTP não possui o cabeçalho `Content-Type`. Isso ocorre porque a requisição é do tipo `GET`, que é utilizada para solicitar dados e não envia dados no corpo da requisição. O cabeçalho `Content-Type` é usado apenas para descrever o formato dos dados enviados no corpo da requisição (por exemplo, em requisições `POST` ou `PUT`).
 
 
+e) 
+
+Código de status - 500 Internal Server Error
+Na resposta nao mostra nada
+
+f)
+A principal mudança é que a mensagem de erro detalhada do PHP, que antes era escondida.
+
+Código de status: 200 OK
+
+Corpo da resposta: <br/>
+<b>Parse error</b>
+:  syntax error, unexpected token &quot;echo &quot;in <b>/home/vol14_4/infinityfree.com/if0_39210014/htdocs/trabalho11/Exemplos-Ajax-XHR/Exemplos-Ajax-XHR/ex2-busca-cidade/busca-cidade.php</b>
+on line <b>6</b>
+<br/>
+
+A configuração display_errors = On é ideal para a fase de desenvolvimento, pois exibe erros detalhados que ajudam a depurar o código rapidamente. No entanto, ela nunca deve ser usada em um ambiente de produção (site no ar), pois expõe informações sensíveis do servidor a potenciais atacantes, comprometendo a segurança. Em produção, os erros devem ser apenas registrados em um arquivo de log, sem serem exibidos.
