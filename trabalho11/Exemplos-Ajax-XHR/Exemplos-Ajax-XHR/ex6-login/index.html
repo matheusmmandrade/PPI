@@ -90,8 +90,8 @@
   </div>
 
   <script>
-    function sendForm(form) {      
-      let xhr = new XMLHttpRequest();    
+    function sendForm(form) {
+      let xhr = new XMLHttpRequest();
       xhr.open("POST", form.getAttribute("action"));
       xhr.responseType = 'json';
 
@@ -105,15 +105,16 @@
         let loginResponse = xhr.response;
         if (loginResponse.isAuthorized)
           window.location = loginResponse.newLocation;
+        // se a senha bater, é redirecionado para a págian de sucesso
         else {
           const pLoginFail = document.querySelector("#loginFailMsg");
           pLoginFail.classList.remove("hidden");
           setTimeout(() => pLoginFail.classList.add("hidden"), 3000);
-
+          // se der erro, aparece uma mensagem, depois ela desaparece através do classList.add("hidden")
           form.senha.value = "";
           form.senha.focus();
         }
-      }      
+      }
 
       xhr.onerror = function () {
         console.error("Erro de rede - requisição não finalizada");
@@ -128,6 +129,8 @@
       sendForm(form);
     }
   </script>
+  <!-- ao digitar fulano@mail.com com a senha 123, não houve redirecionamento, já com a senha 123456, houve redirecionamento para a página de sucesso. -->
+
 
 </body>
 
