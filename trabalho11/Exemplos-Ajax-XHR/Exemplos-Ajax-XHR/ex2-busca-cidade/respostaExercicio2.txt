@@ -1,0 +1,18 @@
+c)
+
+1 - Qual foi o código de status retornado? 200 OK
+2 - Qual o valor do cabeçalho Content-Type da resposta HTTP? Por quê? text/html; charset=UTF-8 O PHP não define explicitamente esse cabeçalho, então o servidor web (como Apache ou Nginx) atribui o tipo padrão, que geralmente é `text/html` para respostas que contêm texto simples.
+3 - Qual o valor recebido no corpo da resposta HTTP (aba Response)? Uberlândia
+4 - Qual o valor do cabeçalho Server da resposta HTTP? Não tem
+5 - A requisição HTTP possui o cabeçalho Content-Type? Por quê? Não, a requisição HTTP não possui o cabeçalho `Content-Type`. Isso ocorre porque a requisição é do tipo `GET`, que é utilizada para solicitar dados e não envia dados no corpo da requisição. O cabeçalho `Content-Type` é usado apenas para descrever o formato dos dados enviados no corpo da requisição (por exemplo, em requisições `POST` ou `PUT`).
+
+
+d) 
+
+1 - Qual foi o código de status retornado? 404 Not Found
+2 - Qual o valor do cabeçalho Content-Type da resposta HTTP? Por quê? text/html; charset=UTF-8 O PHP não define explicitamente esse cabeçalho, então o servidor web (como Apache ou Nginx) atribui o tipo padrão, que geralmente é `text/html` para respostas que contêm texto simples.
+3 - Qual o valor recebido no corpo da resposta HTTP (aba Response)? 38400-500 is not available
+4 - Qual o valor do cabeçalho Server da resposta HTTP? Não tem
+5 - A requisição HTTP possui o cabeçalho Content-Type? Por quê? Não, a requisição HTTP não possui o cabeçalho `Content-Type`. Isso ocorre porque a requisição é do tipo `GET`, que é utilizada para solicitar dados e não envia dados no corpo da requisição. O cabeçalho `Content-Type` é usado apenas para descrever o formato dos dados enviados no corpo da requisição (por exemplo, em requisições `POST` ou `PUT`).
+
+
