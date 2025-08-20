@@ -43,35 +43,134 @@
   <script>
 
     function carregaMarcasDistintas() {
-      // complete o código para permitir que o primeiro <select> 
-      // seja carregado assim que a página for apresentada ao usuário. 
-      // O código JavaScript deve fazer uma requisição Ajax ao script get-marcas-php.      
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "get-marcas.php");
+      xhr.responseType = 'json';
+
+      xhr.onload = function () {
+        if (xhr.status != 200) return;
+
+        const marcas = xhr.response;
+        const selectMarca = document.querySelector("#marca");
+
+        selectMarca.innerHTML = '<option value="">Selecione a marca</option>';
+
+        marcas.forEach(marca => {
+          let option = document.createElement("option");
+          option.text = marca;
+          option.value = marca;
+          selectMarca.add(option);
+        });
+      };
+
+      xhr.send();
     }
 
     function carregaModelosDaMarca() {
-      // complete o código para que o segundo <select> seja carregado com base 
-      // na marca escolhida no primeiro <select>. A função deve fazer uma requisição Ajax
-      // ao script get-modelos.php. Adicione o código JavaScript para que a função seja 
-      // chamada na ocorrência do evento apropriado.
+      const marcaSelecionada = document.querySelector("#marca").value;
+      if (!marcaSelecionada) {
+        const selectModelo = document.querySelector("#modelo");
+        selectModelo.innerHTML = '<option value="">Selecione o modelo</option>';
+        return;
+      }
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "get-modelos.php?marca=" + marcaSelecionada);
+      xhr.responseType = 'json';
+
+      xhr.onload = function () {
+        if (xhr.status != 200) return;
+
+        const modelos = xhr.response;
+        const selectModelo = document.querySelector("#modelo");
+
+        selectModelo.innerHTML = '<option value="">Selecione o modelo</option>';
+
+        modelos.forEach(modelo => {
+          let option = document.createElement("option");
+          option.text = modelo;
+          option.value = modelo;
+          selectModelo.add(option);
+        });
+      };
+
+      xhr.send();
     }
 
     function carregaVeiculosDoModelo() {
-      // complete o código para permitir que os dados de todos os veículos 
-      // do modelo escolhido sejam listados em uma tabela HTML, conforme figura apresentada
-      // no roteiro do exercício. A função deve fazer uma requisição Ajax ao script 
-      // get-veiculos.php. Ao receber os dados do servidor, esta função deve repassá-los 
-      // à função exibeVeiculos para exibição adequada.
+      const modeloSelecionado = document.querySelector("#modelo").value;
+      if (!modeloSelecionado) return;
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "get-veiculos.php?modelo=" + modeloSelecionado);
+      xhr.responseType = 'json';
+
+      xhr.onload = function () {
+        if (xhr.status != 200 || xhr.response === null) return;
+        const veiculos = xhr.response;
+        exibeVeiculos(veiculos);
+      };
+
+      xhr.send();
     }
 
     function exibeVeiculos(veiculos) {
-      // completo o código para que os dados dos veículos sejam apresentados dinamicamente
-      // na tabela HTML. Deve-se manipular a árvore DOM manipulando a árvore DOM e utilizar
-      // métodos como document.createElement.
+      const tabela = document.querySelector("#tabelaVeiculos");
+
+      tabela.innerHTML = "";
+
+      if (veiculos.length === 0) {
+        tabela.innerHTML = '<tr><td colspan="4">Nenhum veículo encontrado para este modelo.</td></tr>';
+        return;
+      }
+
+      const thead = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      const headers = ["Modelo", "Ano", "Cor", "Quilometragem"];
+
+      headers.forEach(text => {
+        let th = document.createElement("th");
+        th.scope = "col";
+        th.textContent = text;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      tabela.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      veiculos.forEach(veiculo => {
+        let row = document.createElement("tr");
+
+        let modeloCell = document.createElement("td");
+        modeloCell.textContent = veiculo.modelo;
+        row.appendChild(modeloCell);
+
+        let anoCell = document.createElement("td");
+        anoCell.textContent = veiculo.ano;
+        row.appendChild(anoCell);
+
+        let corCell = document.createElement("td");
+        corCell.textContent = veiculo.cor;
+        row.appendChild(corCell);
+
+        let kmCell = document.createElement("td");
+        kmCell.textContent = veiculo.quilometragem;
+        row.appendChild(kmCell);
+
+        tbody.appendChild(row);
+      });
+      tabela.appendChild(tbody);
     }
 
-    //---------------------------------------------------------------------------------------
-    // coloque aqui o código JavaScript "principal" a ser executado na ocorrência dos eventos
+    window.onload = carregaMarcasDistintas;
 
+    document.querySelector("#marca").addEventListener("change", () => {
+      carregaModelosDaMarca();
+    });
+
+    document.querySelector("#modelo").addEventListener("change", () => {
+      carregaVeiculosDoModelo();
+    });
 
   </script>
 
