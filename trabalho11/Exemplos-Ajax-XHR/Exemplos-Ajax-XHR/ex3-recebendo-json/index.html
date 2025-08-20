@@ -19,7 +19,7 @@
 
   <div class="container">
     <h3>Preenchendo o endereço com Ajax</h3>
-  
+
     <form class="row g-3">
       <div>
         <label for="cep" class="form-label">Informe o CEP no formato xxxxx-xxx (Ex. 38400-100, 38400-200)</label>
@@ -38,7 +38,7 @@
         <input type="text" class="form-control" id="cidade" name="cidade">
       </div>
     </form>
-  
+
   </div>
 
   <script>
@@ -77,5 +77,13 @@
   </script>
 
 </body>
+<!-- O código JavaScript e PHP trabalham em conjunto para preencher um formulário de endereço de forma dinâmica. No lado do
+servidor, o script PHP recebe um CEP via requisição GET, cria um objeto Endereco com os dados correspondentes e,
+crucialmente, o converte para uma string JSON usando json_encode() antes de enviá-lo de volta ao navegador. Ele também
+define o cabeçalho Content-type como application/json, informando ao navegador o tipo de dado que está sendo enviado. No
+lado do cliente, o JavaScript faz uma requisição AJAX para esse script PHP e utiliza a propriedade xhr.responseType =
+'json' para que o navegador automaticamente converta a resposta JSON em um objeto JavaScript. Isso permite que o código
+acesse diretamente as propriedades do objeto (endereco.rua, endereco.bairro, endereco.cidade) para preencher os campos
+do formulário de forma simples e eficiente. -->
 
 </html>

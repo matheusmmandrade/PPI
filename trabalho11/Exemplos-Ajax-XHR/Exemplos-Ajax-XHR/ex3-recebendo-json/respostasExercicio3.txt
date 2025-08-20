@@ -1,0 +1,13 @@
+Qual foi o código de status retornado? 200 OK
+Qual o valor do cabeçalho Content-Type da resposta HTTP? Por quê? application/jsonO PHP no lado do servidor definiu explicitamente este cabeçalho usando a função `header()`, informando ao navegador que a resposta é um objeto no formato JSON.
+
+Qual o valor recebido no corpo da resposta HTTP (aba Response)? {"rua":"Av Floriano","bairro":"Centro","cidade":"Uberl\u00e2ndia"}
+Qual o valor do cabeçalho Server da resposta HTTP? openresty
+A requisição HTTP possui o cabeçalho Content-Type? Por quê? Não, a requisição HTTP não possui o cabeçalho `Content-Type`. A requisição é do tipo `GET`, que envia os dados como parâmetros na URL e não possui um corpo de requisição. O cabeçalho `Content-Type` é usado para descrever o formato do corpo de uma requisição.
+
+
+
+
+
+
+
