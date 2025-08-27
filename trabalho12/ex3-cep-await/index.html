@@ -48,30 +48,47 @@
   <script>
 
     async function buscaEndereco(cep) {
+
       if (cep.length != 9) return;
 
       try {
-        const response = await fetch("busca-endereco.php?cep=" + cep);
+        const response = await fetch("busca-endereco-bd.php?cep=" + cep);
+
         if (!response.ok) {
-          errorMessage = await response.text();
-          throw new Error(response.statusText + errorMessage);
+          throw new Error(response.statusText);
         }
+
         const endereco = await response.json();
+
+        // seleciona e preenche os campos do formulário.
         const form = document.querySelector("form");
         form.rua.value = endereco.rua;
         form.bairro.value = endereco.bairro;
         form.cidade.value = endereco.cidade;
       }
+      // bbloco que captura qualquer erro ocorrido no 'try'.
       catch (e) {
+        // exibe o erro no console do navegador.
         console.error(e);
-        return;
       }
     }
 
+    // ao carregar a página...
     window.onload = function () {
+      // ...pega o campo do CEP...
       const inputCep = document.querySelector("#cep");
+      // ...e define a função a ser chamada ao digitar.
       inputCep.onkeyup = () => buscaEndereco(inputCep.value);
     }
+
+
+    //ex b)
+    //   1. Qual é o valor da propriedade response.status?
+    //   R: O valor é 200. Este é o código de status HTTP para "OK", indicando que a requisição foi concluída com sucesso.
+    //
+    //   2. A propriedade response.body contém os dados do endereço? R: Não diretamente. A propriedade 'body' contém um objeto do tipo'ReadableStream' (um fluxo de dados legível).
+    //
+    //   3. Por quê? R: Porque a API Fetch trata o corpo da resposta como um fluxo (stream) por razões de eficiência. Isso permite que o navegador processe os dados à medida que chegam, sem precisar carregar toda a resposta na memória de uma vez. Para obter os dados de fato, é necessário "ler" ou "consumir" esse fluxo, o que é feito pelo método 'response.json()'.
 
   </script>
 
