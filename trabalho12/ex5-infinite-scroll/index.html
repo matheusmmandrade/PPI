@@ -2,10 +2,11 @@
 <html>
 
 <head>
-  <title>Rolagem Infinita</title>
+  <title>Rolagem infinita</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    /* estilos da página */
     body {
       background-color: #dedede;
       font-family: Helvetica;
@@ -51,13 +52,8 @@
 <body>
 
   <section id="products">
-    <h2>Nossos produtos</h2>
+    <h2>nossos produtos</h2>
 
-    <!-- O contúdo de um <template> não é renderizado automaticamente na página, e não é visível
-      diretamente por métodos como document.querySelector, pois ele é tratado como um 
-      fragmento de documento (Document Fragment). Entretanto, podemos utilizar
-      a propriedade 'content' para acessar seu conteúdo, cloná-lo com o método cloneNode e 
-      inserí-lo na árvore DOM renderizada com appendChild -->
     <template id="item-template">
       <div class="item">
         <img class="item-image">
@@ -65,25 +61,34 @@
         <span class="item-price"></span>
       </div>
     </template>
-
   </section>
 
   <script>
+    // trava para evitar múltiplas requisições ao mesmo tempo.
+    let isLoading = false;
 
+    // renderiza os produtos na tela.
     function renderProducts(newProducts) {
       const prodsSection = document.getElementById("products");
-      // veja observações sobre o elemento <template> no código HTML
+      // acessa o 'molde' do item no template html.
       const divItemTemplate = document.getElementById("item-template").content.firstElementChild;
+
+      // para cada produto novo...
       for (let product of newProducts) {
-        const newItem = divItemTemplate.cloneNode(true);
+        const newItem = divItemTemplate.cloneNode(true); // ...clona o molde...
+        // ...preenche os dados...
         newItem.querySelector(".item-image").src = product.imagePath;
         newItem.querySelector(".item-name").textContent = product.name;
         newItem.querySelector(".item-price").textContent = product.price;
-        prodsSection.appendChild(newItem);
+        prodsSection.appendChild(newItem); // ...e adiciona na página.
       };
     }
 
+    // busca os produtos no servidor (backend).
     async function loadProducts() {
+      if (isLoading) return; // se já estiver carregando, não faz nada.
+      isLoading = true; // ativa a trava.
+
       try {
         let response = await fetch("more-products.php");
         if (!response.ok) throw new Error(response.statusText);
@@ -91,21 +96,26 @@
       }
       catch (e) {
         console.error(e);
+        isLoading = false;
         return;
       }
-      renderProducts(products);
+
+      renderProducts(products); // renderiza os produtos recebidos.
+      isLoading = false; // libera a trava.
     }
 
+    // carrega os produtos iniciais.
     window.onload = function () {
       loadProducts();
     }
 
+    // evento disparado ao rolar a página.
     window.onscroll = function () {
+      // se o scroll chegou ao final da página...
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        loadProducts();
+        loadProducts(); // ...carrega mais produtos.
       }
     };
-
   </script>
 
 </body>
