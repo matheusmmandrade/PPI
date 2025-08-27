@@ -122,7 +122,6 @@
 
         const API_BASE_URL = 'https://parallelum.com.br/fipe/api/v1';
 
-        // Função genérica para popular um <select> com dados
         function popularSelect(selectElement, data, valueKey = 'codigo', textKey = 'nome') {
             selectElement.innerHTML = `<option value="">Selecione</option>`; // Limpa e adiciona a opção padrão
             data.forEach(item => {
@@ -134,7 +133,6 @@
             selectElement.disabled = false;
         }
 
-        // Função para resetar e desabilitar selects
         function resetSelects(...selects) {
             selects.forEach(select => {
                 select.innerHTML = `<option value="">--</option>`;
@@ -143,7 +141,6 @@
             resultadoDiv.style.display = 'none';
         }
 
-        // Evento: quando o tipo de veículo é selecionado
         tipoSelect.addEventListener('change', async () => {
             const tipoVeiculo = tipoSelect.value;
             resetSelects(marcaSelect, modeloSelect, anoSelect);
@@ -164,7 +161,6 @@
             }
         });
 
-        // Evento: quando a marca é selecionada
         marcaSelect.addEventListener('change', async () => {
             const tipoVeiculo = tipoSelect.value;
             const codigoMarca = marcaSelect.value;
@@ -186,7 +182,6 @@
             }
         });
 
-        // Evento: quando o modelo é selecionado
         modeloSelect.addEventListener('change', async () => {
             const tipoVeiculo = tipoSelect.value;
             const codigoMarca = marcaSelect.value;
@@ -209,7 +204,6 @@
             }
         });
 
-        // Evento: quando o ano é selecionado
         anoSelect.addEventListener('change', async () => {
             const tipoVeiculo = tipoSelect.value;
             const codigoMarca = marcaSelect.value;
