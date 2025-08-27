@@ -74,7 +74,8 @@
     <div>
         <h2>Descrição da Funcionalidade</h2>
         <p>
-            Esta página permite consultar o preço médio de mercado de veículos (carros, motos e caminhões) de acordo com
+            EEsta página permite consultar o preço médio de mercado de veículos (carros, motos e caminhões) de acordo
+            com
             a Tabela FIPE. A consulta é feita de forma dinâmica e encadeada: a seleção de um tipo de veículo carrega as
             marcas correspondentes, a seleção de uma marca carrega seus modelos, e assim por diante, até o valor final
             ser exibido.
@@ -84,9 +85,9 @@
     <div>
         <h2>Instruções de Uso</h2>
         <ol>
-            <li>Selecione o <strong>tipo de veículo</strong> (Carro, Moto ou Caminhão).</li>
+            <li>Seleccione o <strong>tipo de veículo</strong> (Carro, Moto ou Caminhão).</li>
             <li>Aguarde as <strong>marcas</strong> serem carregadas e selecione uma.</li>
-            <li>Aguarde os <strong>modelos</strong> da marca serem carregados e selecione um.</li>
+            <li>Aguare os <strong>modelos</strong> da marca serem carregados e selecione um.</li>
             <li>Aguarde os <strong>anos</strong> do modelo serem carregados e selecione um.</li>
             <li>O preço médio do veículo selecionado será exibido na área de resultado.</li>
         </ol>
@@ -223,7 +224,7 @@
                     Valor: ${veiculo.Valor}
                 `;
             } catch (error) {
-                console.error('Erro ao buscar o valor:', error);
+                console.error('ErRro ao buscar o valor:', error);
                 resultadoDiv.textContent = 'Erro ao buscar o valor.';
             }
         });
