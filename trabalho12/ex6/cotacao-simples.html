@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotação de Ação</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2em;
+        }
+
+        input {
+            margin-right: 10px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Consultar Cotação de Ação</h1>
+    <form id="consultaForm">
+        <label for="acaoInput">Código da Ação (ex: PETR4.SA, MGLU3.SA):</label>
+        <input type="text" id="acaoInput" required>
+        <button type="submit">Consultar</button>
+    </form>
+
+    <div id="resultado">
+    </div>
+
+    <script>
+        // sua chave de api já está inserida aqui.
+        const apiKey = 'TQ68PS6FNDMCSPJN';
+        const form = document.getElementById('consultaForm');
+        const acaoInput = document.getElementById('acaoInput');
+        const resultadoDiv = document.getElementById('resultado');
+
+        // adiciona um evento de 'submit' ao formulário
+        form.addEventListener('submit', function (event) {
+            // previne o comportamento padrão do formulário, que é recarregar a página
+            event.preventDefault();
+
+            const simboloAcao = acaoInput.value.toUpperCase();
+            if (simboloAcao) {
+                buscarCotacao(simboloAcao);
+            }
+        });
+
+        // função assíncrona para buscar os dados na api
+        async function buscarCotacao(simbolo) {
+            resultadoDiv.textContent = 'Buscando...';
+            const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${simbolo}&apikey=${apiKey}`;
+
+            try {
+                // aguarda a resposta da requisição fetch
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Erro na rede: ' + response.statusText);
+                }
+
+                // aguarda a conversão da resposta para json
+                const data = await response.json();
+
+                // acessa o objeto aninhado 'Global Quote'
+                const quote = data['Global Quote'];
+
+                // verifica se a api retornou um objeto vazio (símbolo inválido ou limite excedido)
+                if (!quote || Object.keys(quote).length === 0) {
+                    throw new Error('Símbolo da ação não encontrado ou limite da API atingido.');
+                }
+
+                // extrai os dados e exibe na tela
+                const preco = quote['05. price'];
+                const fechamentoAnterior = quote['08. previous close'];
+                const variacao = quote['10. change percent'];
+
+                resultadoDiv.innerHTML = `
+                    <strong>${simbolo}:</strong><br>
+                    Preço Atual: R$ ${preco}<br>
+                    Fechamento Anterior: R$ ${fechamentoAnterior}<br>
+                    Variação: ${variacao}
+                `;
+
+            } catch (error) {
+                // captura qualquer erro (de rede ou da lógica) e exibe na tela
+                resultadoDiv.textContent = `Erro ao consultar: ${error.message}`;
+                console.error('Falha na busca:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

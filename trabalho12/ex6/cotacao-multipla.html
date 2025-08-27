@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotações Múltiplas de Ações</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2em;
+        }
+
+        input {
+            margin-bottom: 10px;
+            display: block;
+            width: 200px;
+        }
+
+        #resultados {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .resultado-item {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Consultar Cotações em Paralelo</h1>
+    <form id="consultaForm">
+        <label for="acao1">Ação 1 (ex: PETR4.SA):</label>
+        <input type="text" id="acao1">
+        <label for="acao2">Ação 2 (ex: MGLU3.SA):</label>
+        <input type="text" id="acao2">
+        <label for="acao3">Ação 3 (ex: VALE3.SA):</label>
+        <input type="text" id="acao3">
+        <button type="submit">Consultar Todas</button>
+    </form>
+
+    <div id="resultados">
+    </div>
+
+    <script>
+        // sua chave de api já está inserida aqui.
+        const apiKey = 'TQ68PS6FNDMCSPJN';
+        const form = document.getElementById('consultaForm');
+        const resultadosDiv = document.getElementById('resultados');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // pega os valores dos 3 inputs e filtra os que não foram preenchidos
+            const simbolos = [
+                document.getElementById('acao1').value,
+                document.getElementById('acao2').value,
+                document.getElementById('acao3').value
+            ].filter(simbolo => simbolo.trim() !== '').map(s => s.toUpperCase());
+
+            if (simbolos.length > 0) {
+                buscarMultiplasCotacoes(simbolos);
+            } else {
+                resultadosDiv.textContent = 'Por favor, digite pelo menos um símbolo de ação.';
+            }
+        });
+
+        async function buscarMultiplasCotacoes(simbolos) {
+            resultadosDiv.innerHTML = 'Buscando...';
+
+            try {
+                // 1. cria um array de 'promessas' de fetch.
+                const promessasDeFetch = simbolos.map(simbolo => {
+                    const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${simbolo}&apikey=${apiKey}`;
+                    return fetch(url);
+                });
+
+                // 2. usa promise.all para executar todas as promessas de fetch em paralelo.
+                const respostas = await Promise.all(promessasDeFetch);
+
+                // 3. para cada resposta, cria uma nova promessa para converter o corpo (body) para json.
+                const promessasDeJson = respostas.map(resposta => {
+                    if (!resposta.ok) throw new Error(`Falha em uma das requisições: ${resposta.statusText}`);
+                    return resposta.json();
+                });
+
+                // 4. aguarda que todas as respostas sejam convertidas para json.
+                const todosOsDados = await Promise.all(promessasDeJson);
+
+                // limpa a div de resultados antes de adicionar os novos
+                resultadosDiv.innerHTML = '';
+
+                // 5. itera sobre os dados recebidos e exibe cada um na tela
+                todosOsDados.forEach(data => {
+                    const quote = data['Global Quote'];
+
+                    // cria um 'container' para o resultado do item
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'resultado-item';
+
+                    if (quote && Object.keys(quote).length > 0) {
+                        const simbolo = quote['01. symbol'];
+                        const preco = quote['05. price'];
+                        const variacao = quote['10. change percent'];
+
+                        itemDiv.innerHTML = `
+                            <strong>${simbolo}:</strong><br>
+                            Preço Atual: R$ ${preco} | Variação: ${variacao}
+                        `;
+                    } else {
+                        // A API pode retornar uma nota sobre o limite de uso em vez de um erro.
+                        const simboloBuscado = data.Note ? simbolos[todosOsDados.indexOf(data)] : "desconhecido";
+                        itemDiv.innerHTML = `<strong>${simboloBuscado}:</strong><br> Cotação não encontrada ou limite da API atingido.`;
+                    }
+                    resultadosDiv.appendChild(itemDiv);
+                });
+
+            } catch (error) {
+                resultadosDiv.textContent = `Erro ao consultar: ${error.message}`;
+                console.error('Falha na busca:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
