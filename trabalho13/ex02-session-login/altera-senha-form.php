@@ -77,9 +77,11 @@ exitWhenNotLoggedIn();
     <main>
       <h3>Alteração de senha</h3>
       <form class="row g-3" action="altera-senha.php" method="POST">
-        
-        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
 
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
+        <!-- o campo oculto é uma medida de segurança para prevenir ataques do tipo csrf (falsificação de solicitação entre sites).
+ele envia, junto com a nova senha, um "token" secreto que foi gerado quando o usuário fez login. o servidor então confere se esse token recebido é o mesmo que ele guardou na sessão do usuário.
+isso garante que o pedido para alterar a senha veio mesmo da nossa página e não foi forjado por um site malicioso tentando se passar pelo usuário. se o token estiver errado ou ausente, a operação é bloqueada. -->
         <div class="col-sm-12">
           <label for="email" class="form-label">E-mail</label>
           <input type="email" name="email" class="form-control" id="email">

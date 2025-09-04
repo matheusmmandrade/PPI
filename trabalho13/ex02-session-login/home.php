@@ -2,9 +2,16 @@
 
 require "conexaoMysql.php";
 require "sessionVerification.php";
+// inicia a sessão para poder acessar os dados do usuário.
 
 session_start();
+// chama a função que verifica se o usuário está logado.
+// se não estiver, o script é interrompido e o usuário é redirecionado para o login.
+
 exitWhenNotLoggedIn();
+// se o usuário estiver logado, a página exibe o conteúdo abaixo,
+// incluindo uma mensagem de boas-vindas com o e-mail dele, que foi salvo na sessão.
+
 $pdo = mysqlConnect();
 
 ?>
@@ -49,9 +56,10 @@ $pdo = mysqlConnect();
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut tenetur distinctio odio vel possimus necessitatibus
       aut ab nesciunt beatae, laudantium at alias, quaerat debitis quam labore fugit dolores amet? Temporibus.</p>
     <hr>
-    <p><strong>Dica:</strong> clique em sair e posteriormente tente acessar esta página digitando manualmente 'home.php' no final da barra de endereços do navegador</p>
+    <p><strong>Dica:</strong> clique em sair e posteriormente tente acessar esta página digitando manualmente 'home.php'
+      no final da barra de endereços do navegador</p>
     <a href="altera-senha-form.php">Alterar senha<a>
-    <a href="logout.php">SAIR<a>
+        <a href="logout.php">SAIR<a>
   </main>
 
 </body>

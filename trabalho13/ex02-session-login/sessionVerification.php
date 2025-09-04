@@ -1,9 +1,14 @@
 <?php
+// define uma função reutilizável para proteger páginas.
 
 function exitWhenNotLoggedIn()
-{ 
-  if (!isset($_SESSION['loggedIn'])) {
+{   // verifica se a variável 'loggedIn' não existe na sessão do usuário.
+
+  if (!isset($_SESSION['loggedIn'])) {    // se não existir, redireciona para a página de login.
+
     header("Location: index.html");
-    exit();  
+    // para a execução do script para garantir que nenhum conteúdo restrito seja exibido.
+
+    exit();
   }
 }

@@ -29,16 +29,15 @@ function checkUserCredentials($pdo, $email, $senha)
     $stmt->execute([$email]);
     $senhaHash = $stmt->fetchColumn();
 
-    if (!$senhaHash) 
+    if (!$senhaHash)
       return false; // a consulta não retornou nenhum resultado (email não encontrado)
 
     if (!password_verify($senha, $senhaHash))
       return false; // email e/ou senha incorreta
-      
+
     // email e senha corretos
     return true;
-  } 
-  catch (Exception $e) {
+  } catch (Exception $e) {
     exit('Falha inesperada: ' . $e->getMessage());
   }
 }
@@ -47,6 +46,7 @@ $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';
 
 $pdo = mysqlConnect();
+// verifica se o e-mail e a senha correspondem aos dados no banco.
 if (checkUserCredentials($pdo, $email, $senha)) {
   // Define o parâmetro 'httponly' para o cookie de sessão, para que o cookie
   // possa ser acessado apenas pelo navegador nas requisições http (e não por código JavaScript).
@@ -54,17 +54,24 @@ if (checkUserCredentials($pdo, $email, $senha)) {
   // código JavaScript proveniente de ataq. X S S.
   $cookieParams = session_get_cookie_params();
   $cookieParams['httponly'] = true;
-  session_set_cookie_params($cookieParams);  
-  
+  session_set_cookie_params($cookieParams);
+  // inicia a sessão para o usuário autenticado.
   session_start();
+  // armazena na sessão que o usuário está logado e qual é o seu e-mail.
   $_SESSION['loggedIn'] = true;
   $_SESSION['user'] = $email;
+  // gera e armazena um token anti-CSRF na sessão.
+  // este token será usado para validar solicitações futuras.
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  // prepara uma resposta JSON indicando sucesso e para onde redirecionar.
 
   $response = new LoginResult(true, 'home.php');
-} 
-else
-  $response = new LoginResult(false, ''); 
+} else
+  // caso as credenciais estejam erradas, prepara uma resposta JSON indicando falha.
+
+  $response = new LoginResult(false, '');
 
 header('Content-Type: application/json; charset=utf-8');
+// envia a resposta JSON de volta para o JavaScript do index.html.
+
 echo json_encode($response);

@@ -90,16 +90,19 @@
   </div>
 
   <script>
-
+    // função para enviar os dados do formulário via 'fetch' para o login.php.
     async function sendForm(form) {
 
       try {
+        // envia os dados do formulário usando o método POST.
         const response = await fetch("login.php", { method: 'post', body: new FormData(form) });
         if (!response.ok) throw new Error(response.statusText);
+        // aguarda a resposta do servidor em formato JSON.
         const loginResult = await response.json();
-
+        // se o login for bem-sucedido (success == true), redireciona para a página home.
         if (loginResult.success)
           window.location = loginResult.newLocation;
+        // caso contrário, exibe uma mensagem de erro na própria página.
         else {
           const parLoginFailMsg = document.querySelector("#loginFailMsg");
           parLoginFailMsg.textContent = 'Dados incorretos. Por favor, tente novamente.';
@@ -116,6 +119,7 @@
     }
 
     const meuForm = document.forms.formLogin;
+    // intercepta o envio padrão do formulário, evitando o recarregamento da página.
     meuForm.onsubmit = function (e) {
       e.preventDefault();
       sendForm(meuForm);

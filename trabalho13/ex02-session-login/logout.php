@@ -12,6 +12,6 @@ session_destroy();
 // exclui o cookie da sessão no computador do usuário
 setcookie(session_name(), "", 1, "/");
 
-// redireciona o usuário para a página de login
+// redireciona o usuário para a página de login.
 header('Location: index.html');
 exit();
