@@ -14,8 +14,8 @@ switch ($acao) {
   case "adicionarProduto":
     //--------------------------------------------------------------------------------------    
     $nome = $_POST["nome"] ?? "";
-    $cpf = $_POST["marca"] ?? "";
-    $email = $_POST["descricao"] ?? "";
+    $marca = $_POST["marca"] ?? "";
+    $descricao = $_POST["descricao"] ?? "";
 
     // gera o hash da senha
 
