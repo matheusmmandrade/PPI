@@ -158,7 +158,6 @@ class Anuncio
         }
     }
 
-    // NOVO MÉTODO 2: Buscar modelos distintos de uma marca
     public function getModelosDistintos(string $marca): array
     {
         $sql = "SELECT DISTINCT modelo FROM Anuncio WHERE marca = ? ORDER BY modelo ASC";
@@ -172,7 +171,6 @@ class Anuncio
         }
     }
 
-    // NOVO MÉTODO 3: Buscar cidades distintas para uma marca e modelo
     public function getCidadesDistintas(string $marca, string $modelo): array
     {
         $sql = "SELECT DISTINCT cidade FROM Anuncio WHERE marca = ? AND modelo = ? ORDER BY cidade ASC";
@@ -186,7 +184,6 @@ class Anuncio
         }
     }
 
-    // NOVO MÉTODO 4: Buscar anúncios com filtros
     public function buscarPorFiltros(array $filtros): array
     {
         $sql = <<<SQL
