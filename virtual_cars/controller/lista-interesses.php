@@ -4,14 +4,14 @@ require "../model/Anuncio.php";
 require "../model/Interesse.php";
 require "../conexaoMysql.php";
 
-session_start();
+//session_start();
 header('Content-Type: application/json; charset=utf-8');
 
-if (!isset($_SESSION['user_id'])) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     http_response_code(401);
+//     echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
+//     exit();
+// }
 
 $idAnuncio = $_GET['id'] ?? null;
 if (null === $idAnuncio || !filter_var($idAnuncio, FILTER_VALIDATE_INT) || $idAnuncio <= 0) {
