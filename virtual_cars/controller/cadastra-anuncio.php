@@ -6,7 +6,7 @@ require "../conexaoMysql.php";
 session_start();
 
 //Comentar aqui
-//$_SESSION['user_id'] = 1; 
+$_SESSION['user_id'] = 1; 
 
 //Descometnar aqui
 // if (!isset($_SESSION['user_id'])) {

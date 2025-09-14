@@ -3,13 +3,13 @@
 require "../model/Anuncio.php";
 require "../conexaoMysql.php";
 
-//session_start();
+session_start();
 
 header('Content-Type: application/json; charset=utf-8');
 
 
 //Comentar aqui
-//$_SESSION['user_id'] = 1; 
+$_SESSION['user_id'] = 1; 
 
 // if (!isset($_SESSION['user_id'])) {
 //     echo json_encode([]);

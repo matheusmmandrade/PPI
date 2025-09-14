@@ -3,7 +3,7 @@
 require "../model/Interesse.php";
 require "../conexaoMysql.php";
 
-//session_start();
+session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] != 'POST') {
