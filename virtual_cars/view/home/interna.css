@@ -1,0 +1,77 @@
+body {
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+nav {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+nav .btn-login {
+    position: absolute;
+    right: 2rem;
+}
+
+.funcionalidades {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.funcionalidades h1 {
+    font-size: 1.8rem;
+    color: #0A2463;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.funcionalidade {
+    max-width: 200px;
+    padding: 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.funcionalidade a {
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+}
+.funcionalidade .botao {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #0A2463;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #0041a8;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    width: 100%;
+    flex-grow: 1;
+}
+
+.funcionalidade .botao:hover {
+    background-color: #0041a8;
+    transform: translateY(-2px);
+}

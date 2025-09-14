@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Interesse</title>
+
+  <link rel="stylesheet" href="../../public/css/style.css">
+  <link rel="stylesheet" href="../user/cadastro.css">
+</head>
+<body>
+  <header>
+    <nav class="nav-login">
+      <a href="../home/index.html">
+        <img class="logo-image-nav" src="../../public/images/icon.png" alt="logo">
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h1 class="form-title">Registrar Interesse</h1>
+      <form class="cadastro-form" action="enviar_interesse.php" method="POST">
+        <label for="nome" class="obrigatorio">Nome</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="telefone" class="obrigatorio">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+
+        <label for="mensagem" class="obrigatorio">Mensagem de Interesse</label>
+        <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Digite aqui sua mensagem..."></textarea>
+
+        <button type="submit" class="form-button">Enviar Interesse</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <h3>Vitual Cars não é um site real</h3>
+  </footer>
+</body>
+</html>

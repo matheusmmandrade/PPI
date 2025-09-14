@@ -1,0 +1,87 @@
+body{
+  height: 100vh;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  color: #0A2463;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro-form label {
+  margin-bottom: 0.4rem;
+  color: #1a202c;
+  font-weight: 600;
+}
+
+.cadastro-form input {
+  padding: 0.6rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-button {
+  background-color: #0A2463;
+  color: #ffffff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #0041a8;
+}
+
+.form-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #1a202c;
+}
+
+.form-link a {
+  color: #0A2463;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.form-link a:hover {
+  color: #0041a8;
+  text-decoration: underline;
+}
+
+input:user-invalid {
+  border-color: red;
+}
+
+input:valid {
+  border-color: green;
+}
+
+label.obrigatorio::after {
+    content: ' *'; 
+    color: red;
+    font-weight: bold;
+}

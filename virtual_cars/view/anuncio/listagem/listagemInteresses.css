@@ -1,0 +1,58 @@
+nav {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.interesses-container {
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.interesses-titulo {
+    color: #0A2463;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.interesse-card {
+    background-color: #B6CAF8;
+    border-left: 5px solid #0A2463;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.interesse-nome {
+    margin: 0 0 0.5rem 0;
+    color: #0A2463;
+    font-size: 1.4rem;
+}
+
+.interesse-contato,
+.interesse-mensagem {
+    margin: 0.5rem 0;
+    color: #1a202c;
+    line-height: 1.5;
+}
+
+.interesse-mensagem {
+    font-style: italic;
+}
+
+.interesse-card {
+    position: relative; 
+}
+.btn-excluir-interesse {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #D32F2F; 
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+}

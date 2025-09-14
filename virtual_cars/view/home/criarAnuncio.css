@@ -1,0 +1,33 @@
+body {
+    min-height: 100vh;
+}
+
+nav {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+main {
+    height: auto; 
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadastro-form select {
+  padding: 0.3rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.cadastro-form textarea {
+  padding: 0.6rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
