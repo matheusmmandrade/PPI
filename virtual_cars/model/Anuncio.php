@@ -149,13 +149,19 @@ class Anuncio
     }
     
     public function getCidadesDistintasPorMarcaModelo(string $marca, string $modelo): array
-    {
-        if (empty($marca) || empty($modelo)) return [];
-        $sql = "SELECT DISTINCT cidade FROM Anuncio WHERE marca = ? AND modelo = ? ORDER BY cidade ASC";
-        $stmt = $this.pdo->prepare($sql);
-        $stmt->execute([$marca, $modelo]);
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+{
+    if (empty($marca) || empty($modelo)) {
+        return [];
     }
+    
+    $sql = "SELECT DISTINCT cidade FROM Anuncio WHERE marca = ? AND modelo = ? ORDER BY cidade ASC";
+    
+    // CORREÇÃO: Usando "->" em vez de "."
+    $stmt = $this->pdo->prepare($sql); 
+    
+    $stmt->execute([$marca, $modelo]);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
 
     public function buscarPublico(array $filtros): array
     {
