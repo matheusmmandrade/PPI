@@ -10,11 +10,18 @@ class Anuncio
     }
 
     public function cadastrar(
-        string $marca, string $modelo, int $ano, string $cor, int $quilometragem, 
-        string $descricao, float $valor, string $estado, string $cidade, 
-        int $idAnunciante, array $fotos
-    ): bool
-    {
+        string $marca,
+        string $modelo,
+        int $ano,
+        string $cor,
+        int $quilometragem,
+        string $descricao,
+        float $valor,
+        string $estado,
+        string $cidade,
+        int $idAnunciante,
+        array $fotos
+    ): bool {
         $this->pdo->beginTransaction();
 
         try {
@@ -25,8 +32,16 @@ class Anuncio
 
             $stmtAnuncio = $this->pdo->prepare($sqlAnuncio);
             $stmtAnuncio->execute([
-                $marca, $modelo, $ano, $cor, $quilometragem, $descricao, 
-                $valor, $estado, $cidade, $idAnunciante
+                $marca,
+                $modelo,
+                $ano,
+                $cor,
+                $quilometragem,
+                $descricao,
+                $valor,
+                $estado,
+                $cidade,
+                $idAnunciante
             ]);
 
             $idAnuncio = $this->pdo->lastInsertId();
@@ -35,9 +50,9 @@ class Anuncio
                 INSERT INTO Foto (idAnuncio, nomeArqFoto)
                 VALUES (?, ?)
             SQL;
-            
+
             $stmtFoto = $this->pdo->prepare($sqlFoto);
-            
+
             foreach ($fotos as $nomeFoto) {
                 $stmtFoto->execute([$idAnuncio, $nomeFoto]);
             }
@@ -69,7 +84,7 @@ class Anuncio
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$idAnunciante]);
-            
+
             return $stmt->fetchAll();
 
         } catch (Exception $e) {
@@ -84,7 +99,7 @@ class Anuncio
             $sqlFotos = "SELECT nomeArqFoto FROM Foto WHERE idAnuncio = ?";
             $stmtFotos = $this->pdo->prepare($sqlFotos);
             $stmtFotos->execute([$idAnuncio]);
-            
+
             $nomesFotos = $stmtFotos->fetchAll(PDO::FETCH_COLUMN);
 
             $sqlDelete = "DELETE FROM Anuncio WHERE id = ? AND idAnunciante = ?";
@@ -94,7 +109,7 @@ class Anuncio
             if ($stmtDelete->rowCount() > 0) {
                 return $nomesFotos;
             } else {
-                return []; 
+                return [];
             }
 
         } catch (Exception $e) {
@@ -108,7 +123,7 @@ class Anuncio
         try {
             $sqlAnuncio = "SELECT * FROM Anuncio WHERE id = ?";
             $stmtAnuncio = $this->pdo->prepare($sqlAnuncio);
-            $stmtAnuncion->execute([$idAnuncio]);
+            $stmtAnuncio->execute([$idAnuncio]);
             $anuncio = $stmtAnuncio->fetch();
 
             if (!$anuncio) {
@@ -118,7 +133,7 @@ class Anuncio
             $sqlFotos = "SELECT nomeArqFoto FROM Foto WHERE idAnuncio = ?";
             $stmtFotos = $this->pdo->prepare($sqlFotos);
             $stmtFotos->execute([$idAnuncio]);
-            
+
             $fotos = $stmtFotos->fetchAll(PDO::FETCH_COLUMN);
 
             $anuncio['fotos'] = $fotos;
@@ -128,6 +143,84 @@ class Anuncio
         } catch (Exception $e) {
             error_log($e->getMessage());
             return null;
+        }
+    }
+
+    public function getMarcasDistintas(): array
+    {
+        $sql = "SELECT DISTINCT marca FROM Anuncio ORDER BY marca ASC";
+        try {
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    // NOVO MÉTODO 2: Buscar modelos distintos de uma marca
+    public function getModelosDistintos(string $marca): array
+    {
+        $sql = "SELECT DISTINCT modelo FROM Anuncio WHERE marca = ? ORDER BY modelo ASC";
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$marca]);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    // NOVO MÉTODO 3: Buscar cidades distintas para uma marca e modelo
+    public function getCidadesDistintas(string $marca, string $modelo): array
+    {
+        $sql = "SELECT DISTINCT cidade FROM Anuncio WHERE marca = ? AND modelo = ? ORDER BY cidade ASC";
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$marca, $modelo]);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    // NOVO MÉTODO 4: Buscar anúncios com filtros
+    public function buscarPorFiltros(array $filtros): array
+    {
+        $sql = <<<SQL
+            SELECT
+                a.id, a.marca, a.modelo, a.ano, a.cidade, a.valor,
+                (SELECT nomeArqFoto FROM Foto WHERE idAnuncio = a.id LIMIT 1) as foto
+            FROM Anuncio a
+            WHERE 1=1
+        SQL;
+
+        $params = [];
+
+        if (!empty($filtros['marca'])) {
+            $sql .= " AND a.marca = ?";
+            $params[] = $filtros['marca'];
+        }
+        if (!empty($filtros['modelo'])) {
+            $sql .= " AND a.modelo = ?";
+            $params[] = $filtros['modelo'];
+        }
+        if (!empty($filtros['cidade'])) {
+            $sql .= " AND a.cidade = ?";
+            $params[] = $filtros['cidade'];
+        }
+
+        $sql .= " ORDER BY a.dataHora DESC LIMIT 20";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
         }
     }
 }
